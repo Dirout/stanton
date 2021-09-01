@@ -3,7 +3,7 @@ markdown: false
 ---
 
 {% include head.html %}
-{% include navbar.html %}
+{% include headerbar.html %}
 
 <div class="content">
 {{ page.content }}
