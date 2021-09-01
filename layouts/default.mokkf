@@ -1,0 +1,10 @@
+---
+markdown: false
+---
+
+{% include head.html %}
+{% include navbar.html %}
+
+<div class="content">
+{{ page.content }}
+</div>
