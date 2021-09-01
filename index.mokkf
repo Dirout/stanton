@@ -1,0 +1,31 @@
+---
+permalink: "index.html"
+markdown: false
+layout: default
+author: both
+---
+
+<h3 class="posts-item-note" aria-label="Articles">Articles</h3>
+{% assign urls = '' | split: '' %}
+{% assign article_date_rfc_3339 = collections["articles"] | map: 'date' | sort: "rfc_3339" %}
+{%- for article_date in article_date_rfc_3339 reversed -%}
+  {%- for article in collections["articles"] -%}
+    {% if article.date.rfc_3339 == article_date.rfc_3339 %}
+      {% unless urls contains article.url %}
+        {% assign urls = urls | push: article.url %}
+          {% unless article.data.tags contains "draft" %}
+          <article class="article-item mb-4 p-4 border border-4 rounded-3">
+              <span class="article-item-date">{{ article.date.i_day }} {{ article.date.long_month }} {{ article.date.year }}</span>
+              <h4 class="article-item-title">
+                  <a href="{{ article.url | prepend: global.url }}">{{ article.data.title | escape }}</a>
+              </h4>
+              <div class="mt-3 mb-3 me-5">
+                {{ article.content | strip | truncatewords: 50, " … " }}
+              </div>
+              <a href="{{ article.url | prepend: global.url }}">Read more →</a>
+          </article>
+          {% endunless %}
+      {% endunless %}
+    {% endif %}
+  {%- endfor -%}
+{%- endfor -%}

@@ -1,0 +1,14 @@
+---
+permalink: "/assets/search.json"
+markdown: false
+---
+[
+  {% for article in collections["articles"] %}
+    {
+      "title"    : "{{ article.data.title | escape }}",
+      "tags"     : "{{ article.data.tags | join: ', ' }}",
+      "url"      : "{{ global.url }}{{ article.url }}",
+      "date"     : "{{ article.date.rfc_3339 }}"
+    } {% unless forloop.last %},{% endunless %}
+  {% endfor %}
+]
